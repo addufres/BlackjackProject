@@ -8,8 +8,8 @@ public class Card {
 		this.rank = rank;
 	}
 
-	public int getRank() {
-		return rank.getValue();
+	public Rank getRank() {
+		return rank;
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class Card {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(rank.getValue());
+		builder.append(rank.getRankName());
 		builder.append(" of ");
 		builder.append(suit.getName());
 		return builder.toString();

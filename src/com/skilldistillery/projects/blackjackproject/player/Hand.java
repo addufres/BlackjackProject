@@ -6,18 +6,20 @@ import java.util.List;
 import com.skilldistillery.projects.blackjackproject.cards.Card;
 import com.skilldistillery.projects.blackjackproject.cards.Deck;
 
-public class Hand {
+public class Hand extends Deck{
 	private List<Card> hand;
 	
 	public Hand() {
 		this.hand = new ArrayList<>();
 	}
 	
-	public void addCard(Deck d) {
-		Card card = d.dealCard();
+	public void addCard(Card card) {
 		hand.add(card);
-		System.out.println("You were dealt a: " + card.toString());
-		System.out.println("Your hand is now ");
+		System.out.println("A: " + card.toString() + " was dealt.");
+	}
+	public void addCardDealersFirst(Card c) {
+		hand.add(c);
+		System.out.println("You were dealt the first card face down.");
 	}
 	
 	public List<Card> getHand() {
@@ -27,9 +29,25 @@ public class Hand {
 	public int getValOfHand() {
 		int value = 0;
 		for (Card card : hand) {
-			value += card.getRank();
+			value += card.getRank().getValue();
 		}
 		return value;
 	}
+
+	@Override
+	public int checkDeckSize() {
+		return super.checkDeckSize();
+	}
+
+	@Override
+	public Card dealCard() {
+		return super.dealCard();
+	}
+
+	@Override
+	public void shuffle() {
+		super.shuffle();
+	}
+
 	
 }

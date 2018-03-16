@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-	List<Card> deck = new ArrayList<>();
+	static List<Card> deck = new ArrayList<>();
 
 	public Deck() {
 		super();

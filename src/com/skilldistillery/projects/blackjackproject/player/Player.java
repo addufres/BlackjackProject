@@ -13,7 +13,7 @@ public class Player {
 	}
 	
 	public void hit(Deck d) {
-		hand.addCard(d);
+		hand.addCard(d.dealCard());
 	}
 	
 	public void stay() {
@@ -22,6 +22,9 @@ public class Player {
 
 	public List<Card> getHand() {
 		return hand.getHand();
+	}
+	public Hand getHandNotList() {
+		return this.hand;
 	}
 
 	public void setHand(Hand hand) {
