@@ -8,20 +8,22 @@ import com.skilldistillery.projects.blackjackproject.player.Hand;
 import com.skilldistillery.projects.blackjackproject.player.Player;
 
 public class Game {
-	private Deck d = new Deck();
+	private static Deck d = new Deck();
 	private Player player = new Player();
 	private Player dealer = new Player();
 
 	public static void main(String[] args) {
 		Game game = new Game();
 		Scanner sc = new Scanner(System.in);
+		game.printWelcome();
+		while(d.checkDeckSize() > 4) {
 		game.run(sc);
+		}
 		sc.close();
 	}
 
 	private void run(Scanner sc) {
 		boolean gameOver = false;
-		printWelcome();
 		d.shuffle();
 		startingHands();
 		while (gameOver != true) {
@@ -44,6 +46,7 @@ public class Game {
 							System.out.println("BUST! You Lose.");
 							System.out.println("\nThe total for your hand is: " + player.getHandNotList().getValOfHand());
 							gameOver = true;
+							System.out.println("GAME OVER GOOD GAME.");
 							return;
 						} else if (player.getHandNotList().getValOfHand() == 21) {
 							System.out.println("BLACKJACK!!!! YOU WIN!!!!!");
@@ -57,7 +60,6 @@ public class Game {
 					case 2:
 						player.stay();
 						break;
-					default:
 					}
 				} while (input != 2);
 				System.out.println("DEALER MAKES HIS TURN");
@@ -68,26 +70,83 @@ public class Game {
 					} while (dealer.getHandNotList().getValOfHand() <= 17);
 					System.out.println(dealer.getHand());						
 					if (dealer.getHandNotList().getValOfHand() > 21) {
+						printEndTurn();
 						System.out.println("DEALER BUSTS!! PLAYER WINS!");
+						gameOver = true;
+						return;
+					} else if(dealer.getHandNotList().getValOfHand() < player.getHandNotList().getValOfHand()) {
+						printEndTurn();
+						System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!");
+						gameOver = true;
+						return;
+					} else if(dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
+						printEndTurn();
+						System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!");
+						gameOver = true;
+						return;
+					} else if(dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
+						printEndTurn();
+						System.out.println("PUSH...IT'S A TIE!");
+						break;
+					}
+				} else if(dealer.getHandNotList().getValOfHand() > 17) {
+					dealer.stay();
+					printEndTurn();
+					
+					if(dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
+						System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!");
 						gameOver = true;
 						return;
 					} else if(dealer.getHandNotList().getValOfHand() < player.getHandNotList().getValOfHand()) {
 						System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!");
 						gameOver = true;
 						return;
-					} else if(dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
-						System.out.println("PUSH...IT'S A TIE!");
-						break;
 					}
-				} else if(dealer.getHandNotList().getValOfHand() > 17) {
-					dealer.stay();
-					System.out.println(dealer.getHand());
-				}
+				} 
 			}
 		}
 		System.out.println("GAME OVER GOOD GAME");
+		printScrollDown();
 	}
-
+	private void printScrollDown() {
+		System.out.println("\n\n\nSCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+		System.out.println("SCROLL DOWN FOR NEW HAND");
+		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+	}
+	private void printEndTurn() {
+		System.out.println(dealer.getHand());
+		System.out.println("***********************");
+		System.out.println(" DEALER ENDS HIS TURN\n");
+	}
 	private void printWelcome() {
 		System.out.println("***********************");
 		System.out.println("*Welcome to Blackjack!*");
