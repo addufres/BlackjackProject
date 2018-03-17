@@ -29,12 +29,15 @@ public class Game {
 		d.shuffle();
 		startingHands();
 		while (gameOver != true || continuePrompt != true) {
+
 			if (dealer.getHandNotList().getValOfHand() == 21) {
 				System.out.println("Dealer Wins with BLACKJACK.");
 				gameOver = true;
+				return;
 			} else if (player.getHandNotList().getValOfHand() == 21) {
 				System.out.println("You won with BLACKJACK!");
 				gameOver = true;
+				return;
 			} else {
 				int input = 0;
 				do {
@@ -56,95 +59,113 @@ public class Game {
 						} else {
 							System.out.println("Player Hand: " + player.getHand() + "\nThe total for your hand is: "
 									+ player.getHandNotList().getValOfHand());
+
 						}
 						break;
 					case 2:
 						player.stay();
+						gameOver = false;
 						break;
 					default:
 						System.out.println("ERROR WRONG CHOICE");
-						break;
 					}
 				} while (input != 2);
-				System.out.println("DEALER MAKES HIS TURN");
-				System.out.println("*********************");
+
+				printStartTurn();
+
 				if (dealer.getHandNotList().getValOfHand() <= 17) {
 					do {
 						dealer.hit(d);
 					} while (dealer.getHandNotList().getValOfHand() <= 17);
-					System.out.println(dealer.getHand());
-					if (dealer.getHandNotList().getValOfHand() > 21) {
-						printEndTurn();
-						System.out.println("DEALER BUSTS!! PLAYER WINS!\nLosing score was " + dealer.getHandNotList().getValOfHand());
-						gameOver = true;
-					} else if (dealer.getHandNotList().getValOfHand() < player.getHandNotList().getValOfHand()) {
-						printEndTurn();
-						System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!\nLosing score was " + dealer.getHandNotList().getValOfHand());
-						gameOver = true;
-					} else if (dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
-						printEndTurn();
-						System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!\nLosing score was " + player.getHandNotList().getValOfHand());
-						gameOver = true;
-					} else if (dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
-						printEndTurn();
-						System.out.println("PUSH...IT'S A TIE!\nScore was " + dealer.getHandNotList().getValOfHand());
-					}
-				} else if (dealer.getHandNotList().getValOfHand() > 17) {
+				}
+				if (dealer.getHandNotList().getValOfHand() > 21) {
+					printEndTurn();
+					System.out.println(
+							"DEALER BUSTS!! PLAYER WINS!\nLosing score was " + dealer.getHandNotList().getValOfHand());
+					gameOver = true;
+					return;
+				} else if (dealer.getHandNotList().getValOfHand() < player.getHandNotList().getValOfHand()) {
+					printEndTurn();
+					System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!\nLosing score was "
+							+ dealer.getHandNotList().getValOfHand());
+					gameOver = true;
+					return;
+				} else if (dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
+					printEndTurn();
+					System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!\nLosing score was "
+							+ player.getHandNotList().getValOfHand());
+					gameOver = true;
+					return;
+				} else if (dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
+					printEndTurn();
+					System.out.println("PUSH...IT'S A TIE!\nScore was " + dealer.getHandNotList().getValOfHand());
+					return;
+				} else if (dealer.getHandNotList().getValOfHand() > 17 && dealer.getHandNotList().getValOfHand() < 22) {
 					dealer.stay();
 					printEndTurn();
 					if (dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
-						System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!\nLosing score was " + player.getHandNotList().getValOfHand());
+						System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!\nLosing score was "
+								+ player.getHandNotList().getValOfHand());
 						gameOver = true;
+						return;
 					} else if (dealer.getHandNotList().getValOfHand() < player.getHandNotList().getValOfHand()) {
-						System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!\nLosing score was " + dealer.getHandNotList().getValOfHand());
+						System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!\nLosing score was "
+								+ dealer.getHandNotList().getValOfHand());
 						gameOver = true;
-					} else if(dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
-						printEndTurn();
-						System.out.println("PUSH...IT'S A TIE!\nLosing score was " + dealer.getHandNotList().getValOfHand());
+						return;
+					} else if (dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
+						System.out.println("PUSH...IT'S A TIE!\nScore was " + dealer.getHandNotList().getValOfHand());
+						return;
 					}
+				} else {
+					printEndTurn();
+					System.out.println(
+							"DEALER BUSTS!! PLAYER WINS!\nLosing score was " + dealer.getHandNotList().getValOfHand());
+					gameOver = true;
+					return;
 				}
 			}
-			
-		}		
+
+		}
+
 	}
 
-	private void printScrollDown() {
-		System.out.println("\n\n\nSCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
-		System.out.println("SCROLL DOWN FOR NEW HAND");
-		System.out.println("\\/  \\/  \\/  \\/  \\/ ");
+	private boolean playerTurn(Scanner sc) {
+		System.out.println("Do you want to 1. hit or 2. stay");
+		int input = sc.nextInt();
+		switch (input) {
+		case 1:
+			player.hit(d);
+			if (player.getHandNotList().getValOfHand() > 21) {
+				System.out.println("BUST! You Lose.");
+				System.out.println("\nThe total for your hand is: " + player.getHandNotList().getValOfHand());
+				return true;
+			} else if (player.getHandNotList().getValOfHand() == 21) {
+				System.out.println("BLACKJACK!!!! YOU WIN!!!!!");
+				return true;
+			} else {
+				System.out.println("Player Hand: " + player.getHand() + "\nThe total for your hand is: "
+						+ player.getHandNotList().getValOfHand());
+			}
+			break;
+		case 2:
+			player.stay();
+			return true;
+		default:
+			System.out.println("ERROR WRONG CHOICE");
+			break;
+		}
+		return false;
+	}
+
+	private void printStartTurn() {
+		System.out.println("DEALER MAKES HIS TURN");
+		System.out.println("*********************");
 	}
 
 	private void printEndTurn() {
 		System.out.println("Dealers Hand: " + dealer.getHand());
+		System.out.println("Dealers hand totals " + dealer.getHandNotList().getValOfHand());
 		System.out.println("***********************");
 		System.out.println(" DEALER ENDS HIS TURN\n");
 	}
