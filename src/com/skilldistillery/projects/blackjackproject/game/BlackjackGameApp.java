@@ -7,13 +7,13 @@ import com.skilldistillery.projects.blackjackproject.cards.Deck;
 import com.skilldistillery.projects.blackjackproject.player.Hand;
 import com.skilldistillery.projects.blackjackproject.player.Player;
 
-public class Game {
+public class BlackjackGameApp {
 	private static Deck d = new Deck();
 	private Player player = new Player();
 	private Player dealer = new Player();
 
 	public static void main(String[] args) {
-		Game game = new Game();
+		BlackjackGameApp game = new BlackjackGameApp();
 		Scanner sc = new Scanner(System.in);
 		game.printWelcome();
 		while (d.checkDeckSize() > 10) {
