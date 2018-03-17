@@ -25,10 +25,10 @@ public class Game {
 	}
 
 	private void run(Scanner sc) {
-		boolean gameOver = false, continuePrompt = false;
+		boolean gameOver = false;
 		d.shuffle();
 		startingHands();
-		while (gameOver != true || continuePrompt != true) {
+		while (gameOver != true) {
 
 			if (dealer.getHandNotList().getValOfHand() == 21) {
 				System.out.println("Dealer Wins with BLACKJACK.");
@@ -128,34 +128,6 @@ public class Game {
 
 		}
 
-	}
-
-	private boolean playerTurn(Scanner sc) {
-		System.out.println("Do you want to 1. hit or 2. stay");
-		int input = sc.nextInt();
-		switch (input) {
-		case 1:
-			player.hit(d);
-			if (player.getHandNotList().getValOfHand() > 21) {
-				System.out.println("BUST! You Lose.");
-				System.out.println("\nThe total for your hand is: " + player.getHandNotList().getValOfHand());
-				return true;
-			} else if (player.getHandNotList().getValOfHand() == 21) {
-				System.out.println("BLACKJACK!!!! YOU WIN!!!!!");
-				return true;
-			} else {
-				System.out.println("Player Hand: " + player.getHand() + "\nThe total for your hand is: "
-						+ player.getHandNotList().getValOfHand());
-			}
-			break;
-		case 2:
-			player.stay();
-			return true;
-		default:
-			System.out.println("ERROR WRONG CHOICE");
-			break;
-		}
-		return false;
 	}
 
 	private void printStartTurn() {
