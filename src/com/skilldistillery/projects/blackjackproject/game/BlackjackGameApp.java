@@ -25,106 +25,96 @@ public class BlackjackGameApp {
 	}
 
 	private void run(Scanner sc) {
-		boolean gameOver = false;
 		d.shuffle();
 		startingHands();
-		while (gameOver != true) {
-			if (dealer.getHandNotList().getValOfHand() == 21) {
-				System.out.println("Dealer Wins with BLACKJACK.");
-				gameOver = true;
-				return;
-			} else if (player.getHandNotList().getValOfHand() == 21) {
-				System.out.println("You won with BLACKJACK!");
-				gameOver = true;
-				return;
-			} else {
-				int input = 0;
-				do {
-					System.out.println("Do you want to 1. hit or 2. stay");
-					input = sc.nextInt();
-					switch (input) {
-					case 1:
-						player.hit(d);
-						if (player.getHandNotList().getValOfHand() > 21) {
-							System.out.println("BUST! You Lose.");
-							System.out
-									.println("\nThe total for your hand is: " + player.getHandNotList().getValOfHand());
-							gameOver = true;
-							return;
-						} else if (player.getHandNotList().getValOfHand() == 21) {
-							System.out.println("BLACKJACK!!!! YOU WIN!!!!!");
-							gameOver = true;
-							return;
-						} else {
-							System.out.println("Player Hand: " + player.getHand() + "\nThe total for your hand is: "
-									+ player.getHandNotList().getValOfHand());
-						}
-						break;
-					case 2:
-						player.stay();
-						gameOver = false;
-						break;
-					default:
-						System.out.println("ERROR WRONG CHOICE");
+
+		if (dealer.getHandNotList().getValOfHand() == 21) {
+			System.out.println("Dealer Wins with BLACKJACK.");
+			return;
+		} else if (player.getHandNotList().getValOfHand() == 21) {
+			System.out.println("You won with BLACKJACK!");
+			return;
+		} else {
+			int input = 0;
+			do {
+				System.out.println("Do you want to 1. hit or 2. stay");
+				input = sc.nextInt();
+				switch (input) {
+				case 1:
+					player.hit(d);
+					if (player.getHandNotList().getValOfHand() > 21) {
+						System.out.println("BUST! You Lose.");
+						playerLoseDealerWin();
+						return;
+					} else if (player.getHandNotList().getValOfHand() == 21) {
+						System.out.println("BLACKJACK!!!! YOU WIN!!!!!");
+						return;
+					} else {
+						System.out.println("Player Hand: " + player.getHand() + "\nThe total for your hand is: "
+								+ player.getHandNotList().getValOfHand());
 					}
-				} while (input != 2);
-
-				printStartTurn();
-
-				if (dealer.getHandNotList().getValOfHand() <= 17) {
-					do {
-						dealer.hit(d);
-					} while (dealer.getHandNotList().getValOfHand() <= 17);
+					break;
+				case 2:
+					player.stay();
+					break;
+				default:
+					System.out.println("ERROR WRONG CHOICE");
 				}
+			} while (input != 2);
 
-				if (dealer.getHandNotList().getValOfHand() > 21) {
-					printEndTurn();
-					System.out.println(
-							"DEALER BUSTS!! PLAYER WINS!\nLosing score was " + dealer.getHandNotList().getValOfHand());
-					gameOver = true;
+			printStartTurn();
+
+			if (dealer.getHandNotList().getValOfHand() <= 17) {
+				do {
+					dealer.hit(d);
+				} while (dealer.getHandNotList().getValOfHand() <= 17);
+			}
+
+			if (dealer.getHandNotList().getValOfHand() > 21) {
+				printEndTurn();
+				dealerLosePlayerWin();
+				return;
+			} else if (dealer.getHandNotList().getValOfHand() < player.getHandNotList().getValOfHand()) {
+				printEndTurn();
+				dealerLosePlayerWin();
+				return;
+			} else if (dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
+				printEndTurn();
+				playerLoseDealerWin();
+				return;
+			} else if (dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
+				printEndTurn();
+				System.out.println("PUSH...IT'S A TIE!\nScore was " + dealer.getHandNotList().getValOfHand());
+				return;
+			} else if (dealer.getHandNotList().getValOfHand() > 17 && dealer.getHandNotList().getValOfHand() < 22) {
+				dealer.stay();
+				printEndTurn();
+				if (dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
+					playerLoseDealerWin();
 					return;
 				} else if (dealer.getHandNotList().getValOfHand() < player.getHandNotList().getValOfHand()) {
-					printEndTurn();
-					System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!\nLosing score was "
-							+ dealer.getHandNotList().getValOfHand());
-					gameOver = true;
-					return;
-				} else if (dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
-					printEndTurn();
-					System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!\nLosing score was "
-							+ player.getHandNotList().getValOfHand());
-					gameOver = true;
+					dealerLosePlayerWin();
 					return;
 				} else if (dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
-					printEndTurn();
 					System.out.println("PUSH...IT'S A TIE!\nScore was " + dealer.getHandNotList().getValOfHand());
 					return;
-				} else if (dealer.getHandNotList().getValOfHand() > 17 && dealer.getHandNotList().getValOfHand() < 22) {
-					dealer.stay();
-					printEndTurn();
-					if (dealer.getHandNotList().getValOfHand() > player.getHandNotList().getValOfHand()) {
-						System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!\nLosing score was "
-								+ player.getHandNotList().getValOfHand());
-						gameOver = true;
-						return;
-					} else if (dealer.getHandNotList().getValOfHand() < player.getHandNotList().getValOfHand()) {
-						System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!\nLosing score was "
-								+ dealer.getHandNotList().getValOfHand());
-						gameOver = true;
-						return;
-					} else if (dealer.getHandNotList().getValOfHand() == player.getHandNotList().getValOfHand()) {
-						System.out.println("PUSH...IT'S A TIE!\nScore was " + dealer.getHandNotList().getValOfHand());
-						return;
-					}
-				} else {
-					printEndTurn();
-					System.out.println(
-							"DEALER BUSTS!! PLAYER WINS!\nLosing score was " + dealer.getHandNotList().getValOfHand());
-					gameOver = true;
-					return;
 				}
+			} else {
+				printEndTurn();
+				dealerLosePlayerWin();
+				return;
 			}
 		}
+	}
+
+	private void playerLoseDealerWin() {
+		System.out.println("PLAYER LOSES!!! DEALER WINS!!!!!!!!!!!!!!\nLosing score was "
+				+ player.getHandNotList().getValOfHand());
+	}
+
+	private void dealerLosePlayerWin() {
+		System.out.println("DEALER LOSES!!! PLAYER WINS!!!!!!!!!!!!!!\nLosing score was "
+				+ dealer.getHandNotList().getValOfHand());
 	}
 
 	private void printStartTurn() {
