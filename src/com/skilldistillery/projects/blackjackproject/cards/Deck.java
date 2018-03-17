@@ -5,14 +5,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-	static List<Card> deck = new ArrayList<>();
+	private List<Card> deck;
+
+	public List<Card> getDeck() {
+		return deck;
+	}
 
 	public Deck() {
 		super();
+		this.deck = new ArrayList<>();
 		Suit[] suits = Suit.values();
 		Rank[] ranks = Rank.values();
-		for (int i = 0; i < suits.length; i++) {
-			for (int j = 0; j < ranks.length; j++) {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 13; j++) {
 				deck.add(new Card(suits[i], ranks[j]));
 			}
 		}
@@ -27,11 +32,13 @@ public class Deck {
 	}
 
 	public void shuffle() {
-		System.out.println("Shuffling...\n");
+		System.out.println("\n\nShuffling...\n");
 		System.out.println("\tShuffling...\n");
 		System.out.println("\t\tShuffling...\n");
 		System.out.println("\tShuffling...\n");
-		System.out.println("Shuffling...\n");
-		Collections.shuffle(deck);
+		System.out.println("Shuffling...\n\n");
+		for(int i = 0; i < 5; i++ ) {
+			Collections.shuffle(deck);
+		}
 	}
 }

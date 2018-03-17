@@ -1,7 +1,9 @@
 package com.skilldistillery.projects.blackjackproject.cards;
+
 public class Card {
 	private Suit suit;
 	private Rank rank;
+
 	public Card(Suit suit, Rank rank) {
 		super();
 		this.suit = suit;
@@ -11,7 +13,7 @@ public class Card {
 	public Rank getRank() {
 		return rank;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -20,6 +22,7 @@ public class Card {
 		result = prime * result + ((suit == null) ? 0 : suit.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -35,6 +38,7 @@ public class Card {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -43,5 +47,5 @@ public class Card {
 		builder.append(suit.getName());
 		return builder.toString();
 	}
-	
+
 }

@@ -11,11 +11,12 @@ public class Player {
 	public Player() {
 		this.hand = new Hand();
 	}
-	
+
 	public void hit(Deck d) {
 		hand.addCard(d.dealCard());
+		System.out.println("\n\n" + d.checkDeckSize() + " left in the deck.");
 	}
-	
+
 	public void stay() {
 		System.out.println("You chose to stay. Your hand still totals " + hand.getValOfHand());
 	}
@@ -23,6 +24,7 @@ public class Player {
 	public List<Card> getHand() {
 		return hand.getHand();
 	}
+
 	public Hand getHandNotList() {
 		return this.hand;
 	}
@@ -64,6 +66,5 @@ public class Player {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 }
