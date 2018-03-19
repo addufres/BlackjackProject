@@ -43,4 +43,4 @@ I am able to much more confidently conceptualize a mental model of my program wh
 I struggled more this project than others with the cleanliness of my code. I found myself less confident in my code due to how difficult it was to follow.
 I need to improve on moving things into their own methods. I struggled with that this project as every time I attempted to restructure my code into more individual methods 
 I would find something creating a road block or compiler error. This is something I intend to fix on future projects and will be committing more effort on my part to understanding 
-how to do this effectively and correctly.
+how to do this effectively and correctly. I have started a second version that I would like to work on, but the main one is working per the grading requirements.
