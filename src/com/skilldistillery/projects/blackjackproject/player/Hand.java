@@ -40,10 +40,6 @@ public class Hand extends Deck {
 		return super.checkDeckSize();
 	}
 
-//	@Override
-//	public Card dealCard() {
-//		return super.dealCard();
-//	}
 
 	@Override
 	public void shuffle() {
@@ -51,3 +47,4 @@ public class Hand extends Deck {
 	}
 
 }
+
